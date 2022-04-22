@@ -1,7 +1,8 @@
 version: '3.7'
 services:
-  mysql-mycrud:
+  db:
     image: mysql:5.7
+    container_name: mysql-mycrud
     environment:
       MYSQL_ROOT_PASSWORD: mypass
     ports:
@@ -10,8 +11,9 @@ services:
       - ./db:/var/lib/mysql
       - ./docker-config/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./docker-config/mysql/docker.cnf:/etc/docker.cnf
-  node-mycrud:
+  backend:
     image: node:15
+    container_name: api-mycrud
     ports:
       - "8000:8000"
     working_dir: /application
@@ -22,8 +24,9 @@ services:
     depends_on:
       - mysql-mycrud
     
-  nginx-mycrud:
+  web:
     image: nginx:1.20.2
+    container_name: nginx-mycrud
     ports:
       - "80:80"
     volumes:
