@@ -10,3 +10,12 @@ services:
       - ./db:/var/lib/mysql
       - ./docker-config/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./docker-config/mysql/docker.cnf:/etc/docker.cnf
+  node-mycrud:
+    image: node:15
+    ports:
+      - "8000:8000"
+    working_dir: /application
+    volumes:
+      - ./docker-config/node/start_application.sh:/application/
+      - ./backend:/application/app/
+    entrypoint: ["/application/start_application.sh"]
