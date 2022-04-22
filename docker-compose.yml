@@ -18,6 +18,8 @@ services:
     volumes:
       - ./docker-config/node/start_application.sh:/application/start_application.sh
       - ./backend:/application/app/
+    command:
+      - sleep 30
     entrypoint: ["/application/start_application.sh"]
     depends_on:
       - mysql-mycrud
