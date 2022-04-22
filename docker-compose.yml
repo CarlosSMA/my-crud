@@ -1,0 +1,8 @@
+version: '3.7'
+services:
+  mysql-mycrud:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: mypass
+    ports:
+      - "3306:3306"
