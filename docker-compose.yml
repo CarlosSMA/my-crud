@@ -19,3 +19,5 @@ services:
       - ./docker-config/node/start_application.sh:/application/
       - ./backend:/application/app/
     entrypoint: ["/application/start_application.sh"]
+    depends_on:
+      - mysql-mycrud
