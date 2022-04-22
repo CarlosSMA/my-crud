@@ -23,7 +23,12 @@ services:
     entrypoint: ["/application/start_application.sh"]
     depends_on:
       - db
-    
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/users"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
   web:
     image: nginx:1.20.2
     container_name: nginx-mycrud
@@ -34,3 +39,8 @@ services:
       - ./frontend:/var/www/html
     depends_on:
       - backend
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
