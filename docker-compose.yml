@@ -16,8 +16,17 @@ services:
       - "8000:8000"
     working_dir: /application
     volumes:
-      - ./docker-config/node/start_application.sh:/application/
+      - ./docker-config/node/start_application.sh:/application/start_application.sh
       - ./backend:/application/app/
     entrypoint: ["/application/start_application.sh"]
     depends_on:
       - mysql-mycrud
+    
+  nginx-mycrud:
+    image: nginx:1.20.2
+    ports:
+      - "80:80"
+    volumes:
+      - ./docker-config/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - node-mycrud
